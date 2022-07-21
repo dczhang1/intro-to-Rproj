@@ -1,16 +1,127 @@
 ---
-title: "Your Document Title"
-author: "Document Author"
-date: "`r Sys.Date()`"
+title: "Answer Key"
+author: "Don Z"
+date: '2022-07-21'
 output:
-  prettydoc::html_pretty:
-    theme: architect
-    highlight: github
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
+  pdf_document:
+    toc: yes
+    toc_depth: 2
 ---
 
-```{r Master Run, include=FALSE}
-            source('01_load.R')
-            source('02_clean.R')
+# General Instructions
+
+Below you will find a list of tasks. Some tasks require you to provide a answer. In this case, please type your answer directly under the question and format your answer in **bold**. In other cases, you may be asked to write some code in a blank code chunk. 
+
+## 1. Please change the title, author, and date of this rmd file to something reasonable.
+
+## 2. Run the following code chunk and explain what the purpose of this code chunk in a sentence or two.
+
+```{r}
+source("01_load.R")
 ```
 
-New additions to this file
+## 2. Write the script needed to import the datafile into R in the code chunk below. Name the dataframe for as "df_risk_raw". Also explain words, where would this data import code go in a normal project? 
+
+```{r import data}
+df_risk_raw <- read_csv("Data/WorkplaceData_raw.csv")
+```
+
+## 3. Run the code to make sure that the data is imported with no errors and is shown in your Enviornment
+
+## 4. Look at the data object df_risk_raw. How many subjects and variables are in this dataframe? 
+
+## 5. Run the following chunk to see a list of variables
+```{r}
+names(df_risk_raw)
+```
+
+## 6. Find the "Reference" folder in the directory and open the codebook word document to answer the following questions:
+
+### 6.1) What is variable HH6?
+
+### 6.2) What is variable CW15?
+
+### 6.3) Which items are part of the "Genearl Risk Propensity Scale"?
+
+### 6.4) How many items are in the Perceived Disadvantage Index?
+
+## 7. Write the script for creating a data that contains *only* the items for the General Risk Propensity Scale
+
+```{r}
+select(df_risk_raw, GRIP1:GRIP8)
+```
+
+## 8. Write the script for creating a dataset with participants between ages 18 and 24
+
+```{r}
+filter(df_risk_raw, AGE_1 < 24, AGE_1 > 18)
+```
+
+## 9. Create a new variable in the data frame "Mean_GRIPS" based on the average of all of the items in the General Risk Propensity Scale using the rowMeans function
+
+```{r}
+df_risk_raw$Mean_GRIPS <- rowMeans(df_risk_raw[,c("GRIP1", "GRIP2", "GRIP3", "GRIP4", "GRIP5", "GRIP6", "GRIP7", "GRIP8")], na.rm = T)
+```
+
+## 10. Repeat step 9 using the **scoreItem** function provided in 2_clean.R file in the analysisTemplate repo. For this situation, all the items are positively coded. Name this new variable "Mean_GRIPS_2"
+
+```{r}
+df_risk_raw$Mean_GRIPS_2 <- as.vector(scoreItems(keys = c(1,1,1,1,1,1,1,1), items = select(df_risk_raw, "GRIP1":"GRIP8"))$score)
+```
+
+We will now perform some very basic descriptive statistics 
+
+## 11. We will first calculate the mean, standard deviation, and variance of the Mean_GRIPS variable. Just run the following script. 
+
+```{r}
+mean(df_risk_raw$Mean_GRIPS)
+sd(df_risk_raw$Mean_GRIPS)
+var(df_risk_raw$Mean_GRIPS)
+```
+
+## 12. Use the **describe** function on Mean_GRIPS to create a more thorough summary
+
+```{r}
+describe(df_risk_raw$Mean_GRIPS)
+```
+
+## 13. Create a histogram of the variable Mean_GRIPS (hint: See script in 3_describe.R)
+
+```{r}
+      ggplot(df_risk_raw, aes(Mean_GRIPS)) +
+                        geom_histogram(bins = 20) 
+```
+
+## 14. Create a frequency table of education attainment within the sample
+
+```{r}
+table(df_risk_raw$EDU)
+```
+
+## 15. Create a subset of the dataframe that is just variables: Age, Gender, and the Mean_GRIPS variable you created
+
+```{r}
+select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS)
+```
+
+#16. We will make a simple correlation table using the apa.cor.table function in the package apaTables. First, type ?apa.cor.table into the console for a brief documentation.
+
+#17. Now, make a correlation table with Age, Gender, and Mean_GRIPS. 
+
+```{r}
+apa.cor.table(select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS))
+```
+
+#18. Produce descriptive statistics for Age, Gender, and Mean_GRIPS using the **describe** function 
+
+```{r}
+describe(select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS))
+```
+
+Your done! Now, press the "Knit to HTML" button to turn all of this into a html document. If there are errors, please review the error message. Go through each chunk of your code to make sure they all work. Send the output HTML file to Don. 
+
+#19. Bonus: Make your HTML pretty with the prettydoc package: https://prettydoc.statr.me/ Follow instructions here to produce a beautified version of the document. 
