@@ -16,7 +16,9 @@ output:
 
 Below you will find a list of tasks. Some tasks require you to provide a answer. In this case, please type your answer directly under the question and format your answer in **bold**. In other cases, you may be asked to write some code in a blank code chunk. 
 
-## 1. Please change the title, author, and date of this rmd file to something reasonable.
+Some of the tasks will require you to pull code from the analysisTemplate repo. Find it here: https://github.com/dczhang1/analysisTemplates.git
+
+## 1. Please change the title, author, and date of this rmd file to something reasonable
 
 ## 2. Run the following code chunk and explain what the purpose of this code chunk in a sentence or two.
 
@@ -24,13 +26,13 @@ Below you will find a list of tasks. Some tasks require you to provide a answer.
 source("01_load.R")
 ```
 
-## 2. Write the script needed to import the datafile into R in the code chunk below. Name the dataframe for as "df_risk_raw". Also explain words, where would this data import code go in a normal project? 
+## 2. Write the script needed to import the datafile into R in the code chunk below. Name the dataframe for as "df_risk_raw". Also explain words, where would this data import code go in a normal project? In other words, if not working on this worksheet, where would the script for importing data go? 
 
 ```{r import data}
 df_risk_raw <- read_csv("Data/WorkplaceData_raw.csv")
 ```
 
-## 3. Run the code to make sure that the data is imported with no errors and is shown in your Enviornment
+## 3. Run the code above to make sure that the data is imported with no errors and is shown in your Enviornment
 
 ## 4. Look at the data object df_risk_raw. How many subjects and variables are in this dataframe? 
 
@@ -49,31 +51,31 @@ names(df_risk_raw)
 
 ### 6.4) How many items are in the Perceived Disadvantage Index?
 
-## 7. Write the script for creating a data that contains *only* the items for the General Risk Propensity Scale
+## 7. Write the script for creating a dataframe that contains *only* the items for the General Risk Propensity Scale
 
 ```{r}
 select(df_risk_raw, GRIP1:GRIP8)
 ```
 
-## 8. Write the script for creating a dataset with participants between ages 18 and 24
+## 8. Write the script for creating a dataframe with participants between ages 18 and 24
 
 ```{r}
 filter(df_risk_raw, AGE_1 < 24, AGE_1 > 18)
 ```
 
-## 9. Create a new variable in the data frame "Mean_GRIPS" based on the average of all of the items in the General Risk Propensity Scale using the rowMeans function
+## 9. Create a new variable in the data frame "Mean_GRIPS" based on the average of all of the items in the General Risk Propensity Scale using the rowMeans function (find script in the 02_clean.R file in the analysisTemplate repo)
 
 ```{r}
 df_risk_raw$Mean_GRIPS <- rowMeans(df_risk_raw[,c("GRIP1", "GRIP2", "GRIP3", "GRIP4", "GRIP5", "GRIP6", "GRIP7", "GRIP8")], na.rm = T)
 ```
 
-## 10. Repeat step 9 using the **scoreItem** function provided in 2_clean.R file in the analysisTemplate repo. For this situation, all the items are positively coded. Name this new variable "Mean_GRIPS_2"
+## 10. Repeat step 9 using the **scoreItem** function provided in the same file. For this situation, all the items are positively coded. Name this new variable "Mean_GRIPS_2"
 
 ```{r}
 df_risk_raw$Mean_GRIPS_2 <- as.vector(scoreItems(keys = c(1,1,1,1,1,1,1,1), items = select(df_risk_raw, "GRIP1":"GRIP8"))$score)
 ```
 
-We will now perform some very basic descriptive statistics 
+We will now perform some very basic descriptive statistics on our dataset.
 
 ## 11. We will first calculate the mean, standard deviation, and variance of the Mean_GRIPS variable. Just run the following script. 
 
@@ -83,7 +85,7 @@ sd(df_risk_raw$Mean_GRIPS)
 var(df_risk_raw$Mean_GRIPS)
 ```
 
-## 12. Use the **describe** function on Mean_GRIPS to create a more thorough summary
+## 12. Now lets use the **describe** function on Mean_GRIPS to create a more thorough summary
 
 ```{r}
 describe(df_risk_raw$Mean_GRIPS)
@@ -110,18 +112,20 @@ select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS)
 
 #16. We will make a simple correlation table using the apa.cor.table function in the package apaTables. First, type ?apa.cor.table into the console for a brief documentation.
 
-#17. Now, make a correlation table with Age, Gender, and Mean_GRIPS. 
+#17. Now, make a correlation table with Age, Gender, and Mean_GRIPS. (Find this script in the 3_descriptive.R from the template.)
 
 ```{r}
 apa.cor.table(select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS))
 ```
 
-#18. Produce descriptive statistics for Age, Gender, and Mean_GRIPS using the **describe** function 
+#18. Produce descriptive statistics for Age, Gender, and Mean_GRIPS using the **describe** function (hint: you should be able to do this in one line of code)
 
 ```{r}
 describe(select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS))
 ```
 
-Your done! Now, press the "Knit to HTML" button to turn all of this into a html document. If there are errors, please review the error message. Go through each chunk of your code to make sure they all work. Send the output HTML file to Don. 
+Your done! Now, go back to the top and make sure every chunk still works. Press the "Knit to HTML" button to turn all of this into a html document. If there are errors, please review the error message. Send the output HTML file to Don. 
 
 #19. Bonus: Make your HTML pretty with the prettydoc package: https://prettydoc.statr.me/ Follow instructions here to produce a beautified version of the document. 
+
+Final remarks - we will be using rmarkdown notebooks like this for sharing analyses. However, you may use R Script files to keep your actual code, if you wish. You may also use multiple notebook files to separate/organize your analyses. 
