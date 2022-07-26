@@ -3,13 +3,14 @@ title: "Answer Key"
 author: "Don Z"
 date: '2022-07-21'
 output:
+  pdf_document: 
+    toc: yes
+    toc_depth: 2
+    number_sections: yes
   html_document:
     toc: yes
     toc_depth: '2'
     df_print: paged
-  pdf_document:
-    toc: yes
-    toc_depth: 2
 ---
 
 # General Instructions
@@ -66,13 +67,17 @@ filter(df_risk_raw, AGE_1 < 24, AGE_1 > 18)
 ## 9. Create a new variable in the data frame "Mean_GRIPS" based on the average of all of the items in the General Risk Propensity Scale using the rowMeans function (find script in the 02_clean.R file in the analysisTemplate repo)
 
 ```{r}
-df_risk_raw$Mean_GRIPS <- rowMeans(df_risk_raw[,c("GRIP1", "GRIP2", "GRIP3", "GRIP4", "GRIP5", "GRIP6", "GRIP7", "GRIP8")], na.rm = T)
+df_risk_raw$Mean_GRIPS <- rowMeans(
+            df_risk_raw[,c("GRIP1", "GRIP2", "GRIP3", "GRIP4", "GRIP5", 
+                           "GRIP6", "GRIP7", "GRIP8")], na.rm = T)
 ```
 
 ## 10. Repeat step 9 using the **scoreItem** function provided in the same file. For this situation, all the items are positively coded. Name this new variable "Mean_GRIPS_2"
 
 ```{r}
-df_risk_raw$Mean_GRIPS_2 <- as.vector(scoreItems(keys = c(1,1,1,1,1,1,1,1), items = select(df_risk_raw, "GRIP1":"GRIP8"))$score)
+df_risk_raw$Mean_GRIPS_2 <- as.vector(
+            scoreItems(keys = c(1,1,1,1,1,1,1,1), 
+            items = select(df_risk_raw, "GRIP1":"GRIP8"))$score)
 ```
 
 We will now perform some very basic descriptive statistics on our dataset.
