@@ -27,7 +27,7 @@ Some of the tasks will require you to pull code from the analysisTemplate repo. 
 source("01_load.R")
 ```
 
-## 2. Write the script needed to import the datafile into R in the code chunk below. Name the dataframe for as "df_risk_raw". Also explain words, where would this data import code go in a normal project? In other words, if not working on this worksheet, where would the script for importing data go? 
+## 2. Write the script to import the dataset in the code chunk below. Name the dataframe as "df_risk_raw". Also explain words, where would this code go in a normal project? In other words, if not working on this worksheet, where would the code for importing data go? 
 
 ```{r import data}
 df_risk_raw <- read_csv("Data/WorkplaceData_raw.csv")
@@ -42,7 +42,7 @@ df_risk_raw <- read_csv("Data/WorkplaceData_raw.csv")
 names(df_risk_raw)
 ```
 
-## 6. Find the "Reference" folder in the directory and open the codebook word document to answer the following questions:
+## 6. Find the "Reference" folder in the file directory and open the codebook word document to answer the following questions:
 
 ### 6.1) What is variable HH6?
 
@@ -90,7 +90,7 @@ sd(df_risk_raw$Mean_GRIPS)
 var(df_risk_raw$Mean_GRIPS)
 ```
 
-## 12. Now lets use the **describe** function on Mean_GRIPS to create a more thorough summary
+## 12. Now use the **describe** function on the Mean_GRIPS variable to create a more thorough summary
 
 ```{r}
 describe(df_risk_raw$Mean_GRIPS)
@@ -109,7 +109,7 @@ describe(df_risk_raw$Mean_GRIPS)
 table(df_risk_raw$EDU)
 ```
 
-## 15. Create a subset of the dataframe that is just variables: Age, Gender, and the Mean_GRIPS variable you created
+## 15. Create a subset of the dataframe with variables: Age, Gender, and the Mean_GRIPS variable
 
 ```{r}
 select(df_risk_raw, AGE_1, GENDER, Mean_GRIPS)
@@ -133,4 +133,4 @@ Your done! Now, go back to the top and make sure every chunk still works. Press 
 
 #19. Bonus: Make your HTML pretty with the prettydoc package: https://prettydoc.statr.me/ Follow instructions here to produce a beautified version of the document. 
 
-Final remarks - we will be using rmarkdown notebooks like this for sharing analyses. However, you may use R Script files to keep your actual code, if you wish. You may also use multiple notebook files to separate/organize your analyses. 
+**Final remarks**: we will be using rmarkdown notebooks like this for sharing reports/results. You may perform your analysis in rmd notebooks like for your own work. However, you may use R Script files to keep your actual code, if you wish. 

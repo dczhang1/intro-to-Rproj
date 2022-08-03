@@ -5,7 +5,6 @@
             library(lavaan)
             library(readr)
             library(ez)
-            library(easystats)
             library(jmv)
             library(apaTables)
             set.seed(6958683) # Set an arbitrary seed for reproducibility
