@@ -1,8 +1,8 @@
 # ReadMe
 
-## Project Title: 
+## Project Title: RANDM Lab Tutorial
 
-## Authors: Hannah Perkins Stark, 
+## Authors: Hannah Perkins Stark, Gino Howard
 
 ## Project Description:
 
