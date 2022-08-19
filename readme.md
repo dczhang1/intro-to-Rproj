@@ -1,8 +1,8 @@
 # ReadMe
 
-## Project Title:
+## Project Title: 
 
-## Authors: 
+## Authors: Hannah Perkins Stark, 
 
 ## Project Description:
 
