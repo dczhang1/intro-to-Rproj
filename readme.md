@@ -15,5 +15,6 @@
 
 I like pineapple on pizza...
 
-#Just opened Rproj, pulled using command in RStudio, testing comitt & push 
+#Just opened Rproj, pulled using command in RStudio, testing commit & push 
+
 
