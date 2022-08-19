@@ -2,7 +2,7 @@
 
 ## Project Title: 
 
-## Authors: Hannah Perkins Stark, 
+## Authors: Hannah Perkins Stark, Katelyn Reeves
 
 ## Project Description:
 
