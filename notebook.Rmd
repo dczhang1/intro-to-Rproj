@@ -27,7 +27,7 @@ Some of the tasks will require you to pull code from the analysisTemplate repo. 
 source("01_load.R")
 ```
 
-## 2. Write the script to import the dataset in the code chunk below. Name the dataframe as "df_risk_raw". Also explain words, where would this code go in a normal project? In other words, if not working on this worksheet, where would the code for importing data go? 
+## 2. Write the script to import the dataset: WorkplaceData_raw.csv in the code chunk below. Name the dataframe as "df_risk_raw". Also explain words, where would this code go in a normal project? In other words, if not working on this worksheet, where would the code for importing data go? 
 
 ```{r import data}
 
@@ -97,9 +97,7 @@ We will now perform some very basic descriptive statistics on our dataset.
 ## 11. We will first calculate the mean, standard deviation, and variance of the Mean_GRIPS variable. Just run the following script. 
 
 ```{r}
-
-
-
+describe(df_risk_raw$Mean_GRIPS)
 
 ```
 
