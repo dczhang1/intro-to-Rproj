@@ -86,6 +86,13 @@ names(df.raw.t1)
 
 This is a very useful command and one you'll be using frequently in your analyses
 
+```{r}
+head(df.raw.t1)
+```
+
+This lets you preview the first few rows of your dataframe. 
+
+
 ### Merging two datasets 
 
 - You will frequently be given data split into multiple files (e.g., longitudinal dataset)
@@ -246,7 +253,8 @@ df.clean.combine <- df.raw.combine %>%
 - Lets calculate the GRiPS score based on the 8 items 
 
 ```{r}
-as.vector(scoreItems(
+df.clean.combine$Mean_GRIPS <- 
+            as.vector(scoreItems(
             keys = c(1,1,1,1,1,1,1,1),
             items = select(df.clean.combine, 
             GRIPS_T1_1:GRIPS_T1_8))$score)
@@ -261,4 +269,5 @@ as.vector(scoreItems(
 - Run your script, does it reproduce all your cleaned data?
 
 - Can someone else clone your project and execute/follow your analyses?
+
 
